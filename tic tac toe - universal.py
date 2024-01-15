@@ -94,7 +94,8 @@ if __name__=="__main__":
     
     board =  [[' ' for i in range (size)] for i in range (size)]
     
-    while True:
+    is_looping = True
+    while is_looping==True:
         user_input_a=0
         user_input_b=0
         user_symbol=0
@@ -104,18 +105,21 @@ if __name__=="__main__":
                            \nb - column number and 1<=b<=board size,\
                                \nc - x or o\
                                    \nor press q to end the game:\n""")
-            if user_input=='q':
-                print('Thanks for the game')
-                sys.exit()                            
-            user_input_a, user_input_b, user_symbol = get_coordinates(user_input)
+            if user_input!='q':
+                user_input_a, user_input_b, user_symbol = get_coordinates(user_input)
+            else:
+                print('Thanks for the game!')
+                is_looping=False
+                break
 
-        board = check_if_avail(board,user_input_a,user_input_b,user_symbol)
-        draw_board2(size)
-        result = is_there_a_winner(board, size)
-        if any(' ' in sublist for sublist in board)==False:
-            print('No fields available. Noone has won')
-            break
-        if result =='Player o has won! Congratulations' or result=='Player x has won! Congratulations':
-            break
+        if is_looping==True:
+            board = check_if_avail(board,user_input_a,user_input_b,user_symbol)
+            draw_board2(size)
+            result = is_there_a_winner(board, size)
+            if any(' ' in sublist for sublist in board)==False:
+                print('No fields available. Noone has won')
+                break
+            if result =='Player o has won! Congratulations' or result=='Player x has won! Congratulations':
+                break
         
     
